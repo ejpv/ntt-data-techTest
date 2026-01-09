@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopMenuComponent } from './top-menu.component';
+import { ConfirmModal } from './confirm-modal';
 
-describe('TopMenuComponent', () => {
-  let component: TopMenuComponent;
-  let fixture: ComponentFixture<TopMenuComponent>;
+describe('ConfirmModal', () => {
+  let component: ConfirmModal;
+  let fixture: ComponentFixture<ConfirmModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TopMenuComponent]
+      declarations: [ConfirmModal]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TopMenuComponent);
+    fixture = TestBed.createComponent(ConfirmModal);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
