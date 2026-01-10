@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { IMAGES } from '../../../core/constants/images';
 import { ProductService } from '../../../core/services/product.service';
 
 @Component({
@@ -12,7 +11,6 @@ import { ProductService } from '../../../core/services/product.service';
 })
 
 export class FinancialProductsListComponent implements OnInit {
-  IMAGES = IMAGES;
   products: any = [];
   loading = false;
   filteredProducts: any = [];

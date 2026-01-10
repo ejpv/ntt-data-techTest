@@ -9,8 +9,7 @@ import { IMAGES } from '../../core/constants/images';
   styleUrl: './header-page.component.css',
 })
 export class HeaderPageComponent {
-
-  @Input() srcImage: string = IMAGES.CASH;
   @Input() title: string = 'Título';
 
+  srcImage = IMAGES.CASH;
 }

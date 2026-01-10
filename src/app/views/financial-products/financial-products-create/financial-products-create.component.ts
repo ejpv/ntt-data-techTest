@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { IMAGES } from '../../../core/constants/images';
 
 @Component({
   selector: 'app-financial-products-create',
@@ -13,7 +12,6 @@ import { IMAGES } from '../../../core/constants/images';
 export class FinancialProductsCreateComponent implements OnInit {
   isEditMode = false;
   productId!: string;
-  IMAGES = IMAGES;
 
   constructor(private location: Location,
               private route: ActivatedRoute) {}
