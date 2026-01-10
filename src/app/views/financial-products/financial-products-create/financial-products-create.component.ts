@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-financial-products-create',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './financial-products-create.component.html',
   styleUrl: './financial-products-create.component.css',
 })
-export class FinancialProductsCreateComponent {}
+export class FinancialProductsCreateComponent {
+
+  constructor(private location: Location) {}
+
+  goBack() {
+    this.location.back();
+  }
+}

@@ -4,6 +4,7 @@
 
 button {
   width: 100%;
+  max-width: 180px;
   padding: 10px 0;
   font-size: 14px;
   border-radius: 6px;

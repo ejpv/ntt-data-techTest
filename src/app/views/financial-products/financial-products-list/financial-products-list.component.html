@@ -3,4 +3,34 @@
     [srcImage]="IMAGES.CASH"
     title="BANCO">
   </app-header-page>
+
+  <div class="toolbar">
+    <input type="text" placeholder="Search..." class="search-input">
+    <app-button
+      [text]="'Agregar'"
+      (action)="goToCreate()"
+    ></app-button>
+  </div>
+
+  <div class="card">
+    <table class="custom-table">
+      <thead>...</thead>
+      <tbody>
+      <tr>
+    @if(products.length == 0){
+      <span> No se ha encontrado ningún producto</span>
+    } @else {
+          @for (product of products; track product.id) {
+              <td><div class="avatar">{{ product.logo }}</div></td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.date_release }}</td>
+              <td>{{ product.date_revision }}</td>
+              <td class="action-button">⋮</td>
+          }
+    }
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
