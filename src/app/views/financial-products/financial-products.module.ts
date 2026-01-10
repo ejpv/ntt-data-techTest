@@ -5,6 +5,7 @@ import { FinancialProductsRoutingModule } from './financial-products-routing.mod
 
 import { FinancialProductsListComponent } from './financial-products-list/financial-products-list.component';
 import { FinancialProductsCreateComponent } from './financial-products-create/financial-products-create.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { FinancialProductsCreateComponent } from './financial-products-create/fi
   ],
   imports: [
     CommonModule,
-    FinancialProductsRoutingModule
+    FinancialProductsRoutingModule,
+    SharedModule,
   ]
 })
 export class FinancialProductsModule {}

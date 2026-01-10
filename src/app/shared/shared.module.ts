@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Button } from './button/button';
-import { ConfirmModal } from './confirm-modal/confirm-modal';
+import { ButtonComponent } from './button/button.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 
 @NgModule({
   declarations: [
-    Button,
-    ConfirmModal
+    ButtonComponent,
+    ConfirmModalComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    Button,
-    ConfirmModal
+    ButtonComponent,
+    ConfirmModalComponent
   ]
 })
 export class SharedModule {}

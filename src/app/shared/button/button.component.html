@@ -1,0 +1,10 @@
+<button
+  [disabled]="isDisabled"
+  (click)="onClick()"
+  [ngClass]="{
+    'btn-primary': type === 'primary',
+    'btn-secondary': type === 'secondary'
+  }"
+>
+  {{ text }}
+</button>

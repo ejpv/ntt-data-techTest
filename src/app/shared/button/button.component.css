@@ -1,0 +1,40 @@
+:host {
+  display: contents;
+}
+
+button {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  border-radius: 6px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+  background: #fff2a8;
+  color: #1f3a8a;
+}
+
+.btn-primary:hover {
+  background: #ffe980;
+  font-weight: bold;
+}
+
+.btn-secondary {
+  background: #eef0f4;
+  color: #1f3a8a;
+}
+
+.btn-secondary:hover {
+  background: #e2e6ec;
+  font-weight: bold;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
