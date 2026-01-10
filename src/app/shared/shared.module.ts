@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import { ButtonComponent } from './button/button.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { HeaderPageComponent } from './header-page/header-page.component';
 
 
 @NgModule({
   declarations: [
     ButtonComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    HeaderPageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgOptimizedImage
   ],
   exports: [
     ButtonComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    HeaderPageComponent
   ]
 })
 export class SharedModule {}
