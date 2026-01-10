@@ -5,7 +5,12 @@
   </app-header-page>
 
   <div class="toolbar">
-    <input type="text" placeholder="Search..." class="search-input">
+    <input type="text"
+           placeholder="Search..."
+           class="search-input"
+           [(ngModel)]="searchValue"
+           (ngModelChange)="filterBySearch()"
+    >
     <app-button
       [text]="'Agregar'"
       (action)="goToCreate()"
@@ -17,10 +22,10 @@
       <thead>...</thead>
       <tbody>
       <tr>
-    @if(products.length == 0){
+    @if(filteredProducts.length == 0){
       <span> No se ha encontrado ningún producto</span>
     } @else {
-          @for (product of products; track product.id) {
+          @for (product of filteredProducts; track product.id) {
               <td><div class="avatar">{{ product.logo }}</div></td>
               <td>{{ product.name }}</td>
               <td>{{ product.description }}</td>

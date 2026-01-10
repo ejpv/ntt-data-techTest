@@ -7,7 +7,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrl: './confirm-modal.component.css',
 })
 export class ConfirmModalComponent {
-  @Input() isVisible = true;
+  @Input() isVisible = false;
   @Input() title = '';
 
   @Output() cancel = new EventEmitter<void>();

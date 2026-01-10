@@ -1,1 +1,30 @@
-<p>financial-products-create works!</p>
+<div class="container">
+  <app-header-page
+    [srcImage]="IMAGES.CASH"
+    title="BANCO"
+  ></app-header-page>
+  <div style="margin-top: 20px; margin-bottom: 20px">
+    <app-button
+      [type]="'secondary'"
+      text="Volver"
+      (action)="goBack()"
+    ></app-button>
+  </div>
+
+  <div class="card">
+    Formulario de Registro
+    --------------
+    row
+    input ID col-6
+    input Nombre col-6
+    row
+    input descripciion col-6
+    input logo col-6
+    row
+    input fechaLiberacion col-6
+    input fechaRevisión col-6
+    row
+    boton secondary reiniciar
+    boton primary enviar
+  </div>
+</div>

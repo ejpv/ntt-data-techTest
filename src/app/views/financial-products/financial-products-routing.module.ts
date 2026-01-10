@@ -6,7 +6,8 @@ import { FinancialProductsCreateComponent } from './financial-products-create/fi
 
 const routes: Routes = [
   { path: '', component: FinancialProductsListComponent },
-  { path: 'create', component: FinancialProductsCreateComponent }
+  { path: 'create', component: FinancialProductsCreateComponent },
+  { path: 'edit/:id', component: FinancialProductsCreateComponent }
 ];
 
 

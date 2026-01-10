@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 
+import { SharedModule } from "../../shared/shared.module";
 import { FinancialProductsRoutingModule } from './financial-products-routing.module';
 
 import { FinancialProductsListComponent } from './financial-products-list/financial-products-list.component';
 import { FinancialProductsCreateComponent } from './financial-products-create/financial-products-create.component';
-import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -14,9 +15,10 @@ import {SharedModule} from "../../shared/shared.module";
     FinancialProductsCreateComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule,
-    FinancialProductsRoutingModule,
     SharedModule,
+    FinancialProductsRoutingModule,
   ]
 })
 export class FinancialProductsModule {}
