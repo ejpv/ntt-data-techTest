@@ -14,8 +14,12 @@ import { FinancialProductModel } from '../../../core/models/financial-product.mo
 export class FinancialProductsListComponent implements OnInit {
   filteredProducts: FinancialProductModel[] = [];
   products: FinancialProductModel[] = [];
-  loading = false;
+  showDeleteModal: boolean = false;
+  nameProductSelected: string = '';
+  idProductSelected: string = '';
+  loading: boolean = false;
   searchValue: string = '';
+  activeMenu: string = '';
   limit: number = 5;
 
   constructor(private router: Router,
@@ -65,5 +69,34 @@ export class FinancialProductsListComponent implements OnInit {
 
   goToEdit(id: string): void {
     this.router.navigate(['/financial-products/edit/',id]);
+  }
+
+  openDeleteModal(id: string, nameProduct: string): void {
+    this.idProductSelected = id;
+    this.nameProductSelected = nameProduct
+    this.showDeleteModal = true;
+  }
+
+  deleteProduct(){
+    this.productsService.delete(this.idProductSelected).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.getProducts();
+        this.showDeleteModal = false;
+        //TODO: Mostrar notificación de success o error
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    })
+  }
+
+  closeModal(){
+    this.showDeleteModal = false;
+  }
+
+  toggleMenu(id: string) {
+    //TODO: Cambiar css para que el dropdown no se muestre debajo en los ultimos registros
+    this.activeMenu = this.activeMenu === id ? '' : id;
   }
 }

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="toolbar">
     <input type="text"
-           placeholder="Search..."
+           placeholder="Search &#x2315;..."
            class="search-input"
            [(ngModel)]="searchValue"
            (ngModelChange)="filterBySearch()"
@@ -40,7 +40,15 @@
                 <td>{{ product.description }}</td>
                 <td>{{ product.date_release }}</td>
                 <td>{{ product.date_revision }}</td>
-                <td>⋮</td>
+                <td>
+                  <div class="dropdown-container">
+                    <button class="dropdown-button" (click)="toggleMenu(product.id)"> &#8942; </button>
+                    <div class="dropdown-content" [style.display]="activeMenu === product.id ? 'block' : 'none'">
+                      <button (click)="goToEdit(product.id)">Editar</button>
+                      <button (click)="openDeleteModal(product.id, product.name)">Eliminar</button>
+                    </div>
+                  </div>
+                </td>
               </tr>
             }
           }
@@ -60,3 +68,11 @@
     </div>
   </div>
 </div>
+
+<app-confirm-modal
+  [message]="'¿Estás seguro de eliminar el producto '+ nameProductSelected +'?'"
+  [isVisible]="showDeleteModal"
+  (cancel)="closeModal()"
+  (confirm)="deleteProduct()"
+>
+</app-confirm-modal>

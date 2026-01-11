@@ -7,15 +7,14 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrl: './confirm-modal.component.css',
 })
 export class ConfirmModalComponent {
-  @Input() isVisible = false;
-  @Input() title = '';
+  @Input() isVisible: boolean = false;
+  @Input() message: string = '';
 
   @Output() cancel = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
 
   onCancel() {
     this.cancel.emit();
-    this.isVisible = false;
   }
 
   onConfirm() {

@@ -2,7 +2,7 @@
   <div style="margin-top: 20px; margin-bottom: 20px">
     <app-button
       [btnType]="'secondary'"
-      text="Volver"
+      text="&#10094; Volver"
       (action)="goBack()"
     ></app-button>
   </div>
@@ -82,13 +82,13 @@
       <div>
         @if (successMessage) {
           <p class="success-message">
-            {{ successMessage }}
+            &#10003; {{ successMessage }}
           </p>
         }
 
         @if (errorMessage) {
           <p class="error-message">
-            {{ errorMessage }}
+            &#10007; {{ errorMessage }}
           </p>
         }
       </div>
