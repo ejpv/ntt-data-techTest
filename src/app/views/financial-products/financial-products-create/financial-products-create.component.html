@@ -79,13 +79,26 @@
         </div>
       </div>
 
+      <div>
+        @if (successMessage) {
+          <p class="success-message">
+            {{ successMessage }}
+          </p>
+        }
+
+        @if (errorMessage) {
+          <p class="error-message">
+            {{ errorMessage }}
+          </p>
+        }
+      </div>
+
       <div class="form-actions">
         <app-button
           [btnType]="'secondary'"
           text="Reiniciar"
           (action)="resetForm()"
         ></app-button>
-        el loading: {{loading}}
         <app-button
           [text]="loading ? 'Enviando...' : 'Enviar'"
           [isLoading]="loading"

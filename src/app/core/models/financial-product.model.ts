@@ -3,6 +3,6 @@ export interface FinancialProductModel {
   name: string;
   description: string;
   logo: string;
-  releaseDate: Date;
-  reviewDate: Date;
+  date_release: Date;
+  date_revision: Date;
 }

@@ -14,19 +14,23 @@ import { FinancialProductModel } from '../../../core/models/financial-product.mo
 export class FinancialProductsListComponent implements OnInit {
   products: FinancialProductModel[] = [];
   loading = false;
-  filteredProducts: any = [];
+  filteredProducts: FinancialProductModel[] = [];
   searchValue!: string;
 
   constructor(private router: Router,
               private productsService: ProductService) {}
 
   ngOnInit() {
+    this.getProducts();
+  }
+
+  getProducts() {
     this.loading = true;
     this.productsService.getProducts().subscribe({
       next: (response: any) => {
         this.loading = false;
         this.products = response.data;
-        this.filteredProducts = this.products;
+        this.filteredProducts = response.data;
       },
       error: (err: any) =>{
         this.loading = false;

@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   AsyncValidatorFn,
@@ -9,7 +9,7 @@ import {
   ValidationErrors,
   Validators
 } from '@angular/forms';
-import { catchError, debounceTime, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, debounceTime, finalize, map, Observable, of, switchMap } from 'rxjs';
 
 import { ProductService } from '../../../core/services/product.service';
 
@@ -22,6 +22,8 @@ import { ProductService } from '../../../core/services/product.service';
 })
 export class FinancialProductsCreateComponent implements OnInit {
   isEditMode: boolean = false;
+  successMessage: string = '';
+  errorMessage: string = '';
   loading: boolean = false;
   productId!: string;
   todayDate!: string;
@@ -62,6 +64,7 @@ export class FinancialProductsCreateComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private productService: ProductService,
+    private cdr: ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
@@ -159,24 +162,26 @@ export class FinancialProductsCreateComponent implements OnInit {
       ? this.productService.update(this.productId, product)
       : this.productService.save(product);
 
-    //TODO: ERROR - REVISAR LOADING NO SE CAMBIA A FALSE HASTA QUE SE HACE APLICA ONCHANGE DE INPUT
-
-    request$.subscribe({
+    request$
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        })
+      ).subscribe({
       next: () => {
-        this.loading = false;
-        alert(this.isEditMode ? 'Producto actualizado correctamente' : 'Producto creado correctamente');
+        this.successMessage = 'Producto creado correctamente';
       },
       error: () => {
-        console.log("el loading: ",this.loading)
-        this.loading = false;
-        alert('Ocurrió un error al guardar');
-        console.log("loading despues dle alert:", this.loading);
+        this.errorMessage = 'Producto creado correctamente';
       }
     });
   }
 
   resetForm(): void {
     this.productForm.reset();
+    this.successMessage = '';
+    this.errorMessage = '';
   }
 
 
@@ -203,13 +208,9 @@ export class FinancialProductsCreateComponent implements OnInit {
   minDateValidator(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const today = new Date().toISOString().substring(0, 10);
 
-    const inputDate = new Date(control.value);
-
-    return inputDate >= today ? null : { minToday: true };
+    return control.value >= today ? null : { minToday: true };
   }
-
   // ----- END VALIDATORS ---
 }

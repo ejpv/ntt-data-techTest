@@ -122,3 +122,19 @@ body {
     flex-direction: column;
   }
 }
+
+.success-message {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #34d399;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #f87171;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
