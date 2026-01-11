@@ -13,24 +13,50 @@
   </div>
 
   <div class="card">
-    <table class="custom-table">
-      <thead>...</thead>
-      <tbody>
-      <tr>
-    @if(filteredProducts.length == 0) {
-      <span> No se ha encontrado ningún producto</span>
-    } @else {
-          @for (product of filteredProducts; track product.id) {
-              <td><div class="avatar">{{ product.logo }}</div></td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.description }}</td>
-              <td>{{ product.date_release }}</td>
-              <td>{{ product.date_revision }}</td>
-              <td class="action-button">⋮</td>
+    <div class="table-wrapper">
+      <table class="custom-table">
+        <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>Descripción</th>
+          <th>Fecha de liberación</th>
+          <th>Fecha de revisión</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          @if(filteredProducts.length == 0) {
+            <tr>
+              <td colspan="6">
+                No se ha encontrado ningún producto.
+              </td>
+            </tr>
+          } @else {
+            @for (product of filteredProducts; track product.id) {
+              <tr>
+                <td><div class="avatar">{{ product.logo }}</div></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.date_release }}</td>
+                <td>{{ product.date_revision }}</td>
+                <td>⋮</td>
+              </tr>
+            }
           }
-    }
-      </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-pagination">
+      <span>{{ products.length }} Resultados</span>
+      <div class="table-pagination-controls">
+        <select (change)="onLimitChange($event)">
+          <option>5</option>
+          <option>10</option>
+          <option>20</option>
+        </select>
+      </div>
+    </div>
   </div>
 </div>

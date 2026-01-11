@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { ProductService } from '../../../core/services/product.service';
 import { FinancialProductModel } from '../../../core/models/financial-product.model';
@@ -12,13 +12,15 @@ import { FinancialProductModel } from '../../../core/models/financial-product.mo
 })
 
 export class FinancialProductsListComponent implements OnInit {
+  filteredProducts: FinancialProductModel[] = [];
   products: FinancialProductModel[] = [];
   loading = false;
-  filteredProducts: FinancialProductModel[] = [];
-  searchValue!: string;
+  searchValue: string = '';
+  limit: number = 5;
 
   constructor(private router: Router,
-              private productsService: ProductService) {}
+              private cdr: ChangeDetectorRef,
+              private productsService: ProductService,) {}
 
   ngOnInit() {
     this.getProducts();
@@ -26,30 +28,35 @@ export class FinancialProductsListComponent implements OnInit {
 
   getProducts() {
     this.loading = true;
-    this.productsService.getProducts().subscribe({
+    this.productsService.getProducts()
+      .subscribe({
       next: (response: any) => {
         this.loading = false;
         this.products = response.data;
-        this.filteredProducts = response.data;
+        this.filterBySearch();
+        this.cdr.detectChanges();
       },
-      error: (err: any) =>{
+      error: (err: any) => {
         this.loading = false;
+        this.cdr.detectChanges();
         console.log("Ha ocurrido un error", err);
       }
     });
   }
 
-  filterBySearch(){
-    //TODO: ERROR - Al INICIAR LA PÁGINA, NO FILTRA NADA
-    if (this.searchValue) {
+  filterBySearch() {
+    const value = this.searchValue?.toLowerCase() || '';
 
-      //TODO: Buscar por valores parciales y no exacta
-      this.filteredProducts = this.products.filter((product : FinancialProductModel) =>
-        product.name.toLowerCase() == this.searchValue.toLowerCase() || product.description.toLowerCase() == this.searchValue.toLowerCase()
-      );
-    } else {
-      this.filteredProducts = this.products;
-    }
+    this.filteredProducts = this.products.filter((product: FinancialProductModel) =>
+      product.name?.toLowerCase().includes(value) ||
+      product.description?.toLowerCase().includes(value) ||
+      product.id?.toLowerCase().includes(value)
+    ).slice(0, this.limit);
+  }
+
+  onLimitChange(event: any) {
+    this.limit = event.target.value;
+    this.filterBySearch();
   }
 
   goToCreate(): void {

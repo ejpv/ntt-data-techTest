@@ -63,8 +63,8 @@ export class FinancialProductsCreateComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
     private productService: ProductService,
-    private cdr: ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
