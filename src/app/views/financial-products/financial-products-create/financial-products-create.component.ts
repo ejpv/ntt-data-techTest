@@ -50,6 +50,7 @@ export class FinancialProductsCreateComponent implements OnInit {
     },
     date_release: {
       required: 'Este campo es obligatorio',
+      minToday: 'La fecha debe ser mayor o igual al hoy'
     },
     date_revision: {
       required: 'Este campo es obligatorio',
@@ -102,8 +103,10 @@ export class FinancialProductsCreateComponent implements OnInit {
         ]
       ],
       logo: ['', Validators.required],
-      //TODO: ERROR - AGREGAR VALIDACIÓN DE LA FECHA
-      date_release: ['', Validators.required],
+      date_release: [
+        ['', Validators.required],
+        this.minDateValidator
+      ],
       date_revision: ['', Validators.required],
     })
   }
@@ -196,5 +199,17 @@ export class FinancialProductsCreateComponent implements OnInit {
       );
     };
   }
+
+  minDateValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const inputDate = new Date(control.value);
+
+    return inputDate >= today ? null : { minToday: true };
+  }
+
   // ----- END VALIDATORS ---
 }
