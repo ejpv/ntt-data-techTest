@@ -16,6 +16,10 @@ export class ProductService {
     return this.http.get(`${environment.url}/products`);
   }
 
+  getProduct(id: string) {
+    return this.http.get<FinancialProductModel>(`${environment.url}/products/${id}`);
+  }
+
   save(product: FinancialProductModel) {
     return this.http.post(`${environment.url}/products`, product);
   }

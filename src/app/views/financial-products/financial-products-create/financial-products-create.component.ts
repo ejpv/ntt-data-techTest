@@ -13,6 +13,8 @@ import { catchError, debounceTime, finalize, map, Observable, of, switchMap } fr
 
 import { ProductService } from '../../../core/services/product.service';
 
+import { FinancialProductModel } from '../../../core/models/financial-product.model';
+
 
 @Component({
   selector: 'app-financial-products-create',
@@ -21,6 +23,7 @@ import { ProductService } from '../../../core/services/product.service';
   styleUrl: './financial-products-create.component.css',
 })
 export class FinancialProductsCreateComponent implements OnInit {
+  originalProduct!: FinancialProductModel;
   isEditMode: boolean = false;
   successMessage: string = '';
   errorMessage: string = '';
@@ -30,7 +33,7 @@ export class FinancialProductsCreateComponent implements OnInit {
 
   productForm!: FormGroup;
 
-  errorMessages: any = {
+  validationMessages: any = {
     id: {
       required: 'ID no válido!',
       minlength: 'El ID debe tener al menos 3 caracteres',
@@ -76,14 +79,14 @@ export class FinancialProductsCreateComponent implements OnInit {
     this.listenReleaseDateChanges();
 
     if (this.isEditMode) {
-      // this.loadProduct(this.productId); TODO: implementar getOne en back
+      this.getProduct(this.productId);
       this.productForm.get('id')?.disable();
     }
   }
 
   private buildForm() {
     this.productForm = this.fb.group({
-      id: [ '',
+      id: ['',
         [
           Validators.required,
           Validators.minLength(3),
@@ -125,7 +128,7 @@ export class FinancialProductsCreateComponent implements OnInit {
 
       this.productForm.get('date_revision')?.setValue(
         reviewDate.toISOString().substring(0, 10),
-        { emitEvent: false }
+        {emitEvent: false}
       );
     });
   }
@@ -140,7 +143,7 @@ export class FinancialProductsCreateComponent implements OnInit {
     const errors = control.errors;
 
     return Object.keys(errors).map(errorKey => {
-      return this.errorMessages[controlName]?.[errorKey] || 'Campo inválido';
+      return this.validationMessages[controlName]?.[errorKey] || 'Campo inválido';
     });
   }
 
@@ -171,9 +174,12 @@ export class FinancialProductsCreateComponent implements OnInit {
       ).subscribe({
       next: () => {
         this.successMessage = 'Producto creado correctamente';
+        if(this.isEditMode) {
+          this.getProduct(this.productId);
+        }
       },
       error: () => {
-        this.errorMessage = 'Producto creado correctamente';
+        this.errorMessage = 'Ocurrió un fallo en la creación del Producto';
       }
     });
   }
@@ -182,8 +188,37 @@ export class FinancialProductsCreateComponent implements OnInit {
     this.productForm.reset();
     this.successMessage = '';
     this.errorMessage = '';
+    if (this.isEditMode) {
+      this.fillProductData(this.originalProduct);
+    }
   }
 
+  getProduct(id: string): void {
+    this.loading = true;
+    this.productService.getProduct(id)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe({
+      next: (data: FinancialProductModel): void => {
+        this.fillProductData(data);
+      },
+      error: (err: any) => {
+        this.errorMessage =`No se ha encontrado el producto con id ${id}`;
+        console.log("error: ",err)
+      },
+    });
+  }
+
+  fillProductData(productData: FinancialProductModel): void {
+    this.originalProduct = productData;
+    this.productForm.patchValue({
+      ...productData,
+    });
+  }
 
   // ----- INIT VALIDATORS ---
   existIdValidator(): AsyncValidatorFn {
