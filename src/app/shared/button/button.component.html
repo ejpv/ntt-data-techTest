@@ -1,10 +1,18 @@
 <button
   [disabled]="isDisabled"
   (click)="onClick()"
+  [attr.type]="isSubmit ? 'submit' : 'button'"
   [ngClass]="{
-    'btn-primary': type === 'primary',
-    'btn-secondary': type === 'secondary'
+    'btn-primary': btnType === 'primary',
+    'btn-secondary': btnType === 'secondary'
   }"
 >
-  <span>{{ text }}</span>
+  @if (isLoading) {
+    <span class="spinner-container">
+      <span class="spinner"></span>
+      <span>{{text}}</span>
+    </span>
+  } @else {
+    <span>{{ text }}</span>
+  }
 </button>

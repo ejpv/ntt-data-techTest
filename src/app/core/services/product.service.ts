@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/enviroment';
+import { FinancialProductModel } from '../models/financial-product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,19 +16,19 @@ export class ProductService {
     return this.http.get(`${environment.url}/products`);
   }
 
-  saveProduct(product: any) {
+  save(product: FinancialProductModel) {
     return this.http.post(`${environment.url}/products`, product);
   }
 
-  updateProduct(id: string, product: any) {
+  update(id: string, product: FinancialProductModel) {
     return this.http.put(`${environment.url}/products/${id}`, product);
   }
 
-  deleteProduct(id: string) {
+  delete(id: string) {
     return this.http.delete(`${environment.url}/products/${id}`);
   }
 
-  verifyProduct(id: string) {
+  verify(id: string) {
     return this.http.get(`${environment.url}/products/verification/${id}`);
   }
 }

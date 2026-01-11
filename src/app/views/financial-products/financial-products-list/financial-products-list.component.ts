@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { ProductService } from '../../../core/services/product.service';
+import { FinancialProductModel } from '../../../core/models/financial-product.model';
 
 @Component({
   selector: 'app-financial-products-list',
@@ -11,7 +12,7 @@ import { ProductService } from '../../../core/services/product.service';
 })
 
 export class FinancialProductsListComponent implements OnInit {
-  products: any = [];
+  products: FinancialProductModel[] = [];
   loading = false;
   filteredProducts: any = [];
   searchValue!: string;
@@ -35,8 +36,11 @@ export class FinancialProductsListComponent implements OnInit {
   }
 
   filterBySearch(){
+    //TODO: ERROR - Al INICIAR LA PÁGINA, NO FILTRA NADA
     if (this.searchValue) {
-      this.filteredProducts = this.products.filter((product : any) =>
+
+      //TODO: Buscar por valores parciales y no exacta
+      this.filteredProducts = this.products.filter((product : FinancialProductModel) =>
         product.name.toLowerCase() == this.searchValue.toLowerCase() || product.description.toLowerCase() == this.searchValue.toLowerCase()
       );
     } else {

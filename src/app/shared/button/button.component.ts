@@ -9,14 +9,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ButtonComponent {
 
   @Input() text: string = 'Default Text';
-  @Input() type: 'primary' | 'secondary' = 'primary';
+  @Input() btnType: 'primary' | 'secondary' = 'primary';
+  @Input() isLoading: boolean = false;
+  @Input() isSubmit: boolean = false ;
   @Input() isDisabled: boolean = false;
 
   @Output() action = new EventEmitter<void>();
 
   onClick() {
-    if (!this.isDisabled) {
-      this.action.emit();
-    }
+    if (!this.isDisabled) this.action.emit();
   }
 }

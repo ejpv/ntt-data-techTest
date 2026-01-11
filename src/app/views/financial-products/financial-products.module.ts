@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { SharedModule } from "../../shared/shared.module";
 import { FinancialProductsRoutingModule } from './financial-products-routing.module';
@@ -18,6 +18,7 @@ import { FinancialProductsCreateComponent } from './financial-products-create/fi
     FormsModule,
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
     FinancialProductsRoutingModule,
   ]
 })

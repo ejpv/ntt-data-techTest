@@ -1,26 +1,100 @@
 <div class="container">
   <div style="margin-top: 20px; margin-bottom: 20px">
     <app-button
-      [type]="'secondary'"
+      [btnType]="'secondary'"
       text="Volver"
       (action)="goBack()"
     ></app-button>
   </div>
 
   <div class="card">
-    Formulario de Registro
-    --------------
-    row
-    input ID col-6
-    input Nombre col-6
-    row
-    input descripciion col-6
-    input logo col-6
-    row
-    input fechaLiberacion col-6
-    input fechaRevisión col-6
-    row
-    boton secondary reiniciar
-    boton primary enviar
+    <p class="form-title">Formulario de Registro</p>
+
+    <form [formGroup]="productForm" (ngSubmit)="save()">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input id="id" type="text" formControlName="id" />
+          <small class="error-input-text">
+            @for (error of getErrorsByControl('id'); track $index) {
+              {{ error }}<br />
+            }
+          </small>
+        </div>
+
+
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name" />
+        <small class="error-input-text">
+          @for (error of getErrorsByControl('name'); track $index) {
+            {{ error }}<br />
+          }
+        </small>
+      </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+        <label for="description">Descripción</label>
+        <input id="description" formControlName="description"/>
+          <small class="error-input-text">
+            @for (error of getErrorsByControl('description'); track $index) {
+              {{ error }}<br />
+            }
+          </small>
+        </div>
+
+        <div class="form-group">
+        <label for="logo">Logo</label>
+        <input id="logo" formControlName="logo" />
+          <small class="error-input-text">
+            @for (error of getErrorsByControl('logo'); track $index) {
+              {{ error }}<br />
+            }
+          </small>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+        <label for="date_release">Fecha de Liberación</label>
+        <input id="date_release" type="date" formControlName="date_release" [min]="todayDate" />
+          <small class="error-input-text">
+            @for (error of getErrorsByControl('date_release'); track $index) {
+              {{ error }}<br />
+            }
+          </small>
+        </div>
+
+        <div class="form-group">
+        <label for="date_revision">Fecha de Revisión</label>
+        <input id="date_revision" type="date" formControlName="date_revision" readonly/>
+          <small class="error-input-text">
+            @for (error of getErrorsByControl('date_revision'); track $index) {
+              {{ error }}<br />
+            }
+          </small>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <app-button
+          [btnType]="'secondary'"
+          text="Reiniciar"
+          (action)="resetForm()"
+        ></app-button>
+        el loading: {{loading}}
+        <app-button
+          [text]="loading ? 'Enviando...' : 'Enviar'"
+          [isLoading]="loading"
+          [isSubmit]="true"
+          [isDisabled]="loading"
+        ></app-button>
+      </div>
+
+    </form>
+
   </div>
 </div>
