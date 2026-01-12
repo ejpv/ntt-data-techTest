@@ -26,7 +26,18 @@
         </tr>
         </thead>
         <tbody>
-          @if(filteredProducts.length == 0) {
+          @if(loading) {
+            @for (item of skeletonRows; track $index) {
+              <tr class="skeleton-row">
+                <td><div class="skeleton skeleton-avatar"></div></td>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-action"></div></td>
+              </tr>
+            }
+          } @else if(filteredProducts.length == 0) {
             <tr>
               <td colspan="6">
                 No se ha encontrado ningún producto.

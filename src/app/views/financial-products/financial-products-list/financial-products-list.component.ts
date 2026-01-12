@@ -17,6 +17,7 @@ export class FinancialProductsListComponent implements OnInit {
   showDeleteModal: boolean = false;
   nameProductSelected: string = '';
   idProductSelected: string = '';
+  skeletonRows: any[] = Array(5);
   loading: boolean = false;
   searchValue: string = '';
   activeMenu: string = '';
@@ -26,7 +27,6 @@ export class FinancialProductsListComponent implements OnInit {
               private productsService: ProductService,) {}
 
   ngOnInit() {
-    //TODO: INTEGRAR LOGICA SCKELETON
     this.getProducts();
   }
 
