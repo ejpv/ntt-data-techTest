@@ -44,7 +44,7 @@
               </td>
             </tr>
           } @else {
-            @for (product of filteredProducts; track product.id) {
+            @for (product of filteredProducts; track product.id; let i = $index) {
               <tr>
                 <td><div class="avatar">{{ product.logo }}</div></td>
                 <td>{{ product.name }}</td>
@@ -52,7 +52,13 @@
                 <td>{{ product.date_release }}</td>
                 <td>{{ product.date_revision }}</td>
                 <td>
-                  <div class="dropdown-container">
+                  <div
+                    class="dropdown-container"
+                    [ngClass]="{
+                    'dropdown-up': isLastRows(i),
+                    'dropdown-active': activeMenu === product.id
+                    }"
+                  >
                     <button class="dropdown-button" (click)="toggleMenu(product.id)"> &#8942; </button>
                     <div class="dropdown-content" [style.display]="activeMenu === product.id ? 'block' : 'none'">
                       <button (click)="goToEdit(product.id)">Editar</button>

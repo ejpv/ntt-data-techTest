@@ -97,4 +97,8 @@ export class FinancialProductsListComponent implements OnInit {
     //TODO: Cambiar css para que el dropdown no se muestre debajo en los ultimos registros
     this.activeMenu = this.activeMenu === id ? '' : id;
   }
+
+  isLastRows(index: number): boolean {
+    return index >= this.filteredProducts.length - 2;
+  }
 }

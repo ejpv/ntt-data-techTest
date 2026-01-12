@@ -106,6 +106,12 @@
   z-index: 100;
 }
 
+.dropdown-up .dropdown-content {
+  top: auto;
+  bottom: 100%;
+  box-shadow: 0 -4px 16px 0 rgba(0,0,0,0.2);
+}
+
 .dropdown-content button {
   color: black;
   padding: 12px 16px;
