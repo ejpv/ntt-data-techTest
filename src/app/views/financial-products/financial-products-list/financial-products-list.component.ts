@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ProductService } from '../../../core/services/product.service';
 import { FinancialProductModel } from '../../../core/models/financial-product.model';
@@ -23,10 +23,10 @@ export class FinancialProductsListComponent implements OnInit {
   limit: number = 5;
 
   constructor(private router: Router,
-              private cdr: ChangeDetectorRef,
               private productsService: ProductService,) {}
 
   ngOnInit() {
+    //TODO: INTEGRAR LOGICA SCKELETON
     this.getProducts();
   }
 
@@ -38,11 +38,9 @@ export class FinancialProductsListComponent implements OnInit {
         this.loading = false;
         this.products = response.data;
         this.filterBySearch();
-        this.cdr.detectChanges();
       },
       error: (err: any) => {
         this.loading = false;
-        this.cdr.detectChanges();
         console.log("Ha ocurrido un error", err);
       }
     });

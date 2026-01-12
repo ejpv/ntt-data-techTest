@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   AsyncValidatorFn,
@@ -66,7 +66,6 @@ export class FinancialProductsCreateComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
     private productService: ProductService,
     ) {}
 
@@ -169,7 +168,6 @@ export class FinancialProductsCreateComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.loading = false;
-          this.cdr.detectChanges();
         })
       ).subscribe({
       next: () => {
@@ -199,7 +197,6 @@ export class FinancialProductsCreateComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.loading = false;
-          this.cdr.detectChanges();
         })
       )
       .subscribe({
