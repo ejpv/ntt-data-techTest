@@ -4,6 +4,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
 import { HeaderPageComponent } from './header-page/header-page.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { ToastNotificationComponent, } from './toast-notification/toast-notification.component';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     ButtonComponent,
     HeaderPageComponent,
     ConfirmModalComponent,
+    ToastNotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     ButtonComponent,
     HeaderPageComponent,
     ConfirmModalComponent,
+    ToastNotificationComponent,
   ]
 })
 export class SharedModule {}

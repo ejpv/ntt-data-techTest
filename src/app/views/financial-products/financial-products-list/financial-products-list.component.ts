@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { ProductService } from '../../../core/services/product.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { FinancialProductModel } from '../../../core/models/financial-product.model';
 
 @Component({
@@ -24,7 +25,9 @@ export class FinancialProductsListComponent implements OnInit {
   limit: number = 5;
 
   constructor(private router: Router,
-              private productsService: ProductService,) {}
+              private productsService: ProductService,
+              private notificationService: NotificationService,
+              ) {}
 
   ngOnInit() {
     this.getProducts();
@@ -41,6 +44,7 @@ export class FinancialProductsListComponent implements OnInit {
       },
       error: (err: any) => {
         this.loading = false;
+        this.notificationService.showError('Ha ocurrido un error');
         console.log("Ha ocurrido un error", err);
       }
     });
@@ -81,10 +85,11 @@ export class FinancialProductsListComponent implements OnInit {
         console.log(response);
         this.getProducts();
         this.showDeleteModal = false;
-        //TODO: Mostrar notificación de success o error
+        this.notificationService.showSuccess('Producto Eliminado correctamente');
       },
       error: (err: any) => {
-        console.log(err);
+        console.log("error: ",err);
+        this.notificationService.showError('Ha ocurrido un error al eliminar producto');
       }
     })
   }
@@ -94,11 +99,10 @@ export class FinancialProductsListComponent implements OnInit {
   }
 
   toggleMenu(id: string) {
-    //TODO: Cambiar css para que el dropdown no se muestre debajo en los ultimos registros
     this.activeMenu = this.activeMenu === id ? '' : id;
   }
 
   isLastRows(index: number): boolean {
-    return index >= this.filteredProducts.length - 2;
+    return index >= this.filteredProducts.length - 1;
   }
 }

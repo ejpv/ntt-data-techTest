@@ -55,7 +55,8 @@ body {
 .form-row {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 40px;
+  padding: 0 40px 0 40px;
   justify-content: space-around;
   margin-bottom: 10px;
 }

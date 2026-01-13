@@ -12,7 +12,7 @@ import {
 import { catchError, debounceTime, finalize, map, Observable, of, switchMap } from 'rxjs';
 
 import { ProductService } from '../../../core/services/product.service';
-
+import { NotificationService } from '../../../core/services/notification.service';
 import { FinancialProductModel } from '../../../core/models/financial-product.model';
 
 
@@ -67,13 +67,13 @@ export class FinancialProductsCreateComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private productService: ProductService,
+    private notificationService: NotificationService,
     ) {}
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.paramMap.get('id')!;
     this.isEditMode = !!this.productId;
-    this.todayDate = new Date().toISOString().substring(0, 10);
-
+    this.todayDate = new Date().toLocaleDateString('en-CA');
     this.buildForm();
     this.listenReleaseDateChanges();
 
@@ -171,13 +171,16 @@ export class FinancialProductsCreateComponent implements OnInit {
         })
       ).subscribe({
       next: () => {
-        this.successMessage = 'Producto creado correctamente';
         if(this.isEditMode) {
+          this.notificationService.showSuccess('Producto editado Correctamente');
           this.getProduct(this.productId);
+        } else {
+          this.notificationService.showSuccess('Producto creado Correctamente');
         }
       },
-      error: () => {
-        this.errorMessage = 'Ocurrió un fallo en la creación del Producto';
+      error: (err: any) => {
+        console.log("Error: ", err)
+        this.notificationService.showError('Ha ocurrido un error al enviar el producto');
       }
     });
   }
@@ -186,6 +189,10 @@ export class FinancialProductsCreateComponent implements OnInit {
     this.productForm.reset();
     this.successMessage = '';
     this.errorMessage = '';
+  }
+
+  resetAction(): void {
+    this.resetForm();
     if (this.isEditMode) {
       this.fillProductData(this.originalProduct);
     }
@@ -204,7 +211,7 @@ export class FinancialProductsCreateComponent implements OnInit {
         this.fillProductData(data);
       },
       error: (err: any) => {
-        this.errorMessage =`No se ha encontrado el producto con id ${id}`;
+        this.notificationService.showError(`No se ha encontrado el producto ${id}`);
         console.log("error: ",err)
       },
     });
@@ -240,8 +247,7 @@ export class FinancialProductsCreateComponent implements OnInit {
   minDateValidator(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
 
-    const today = new Date().toISOString().substring(0, 10);
-
+    const today = new Date().toLocaleDateString('en-CA');
     return control.value >= today ? null : { minToday: true };
   }
   // ----- END VALIDATORS ---
