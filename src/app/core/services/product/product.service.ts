@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from '../../../environments/enviroment';
-import { FinancialProductModel } from '../models/financial-product.model';
+import { environment } from '../../../../environments/enviroment';
+import { FinancialProductModel } from '../../models/financial-product.model';
 
 @Injectable({
   providedIn: 'root',

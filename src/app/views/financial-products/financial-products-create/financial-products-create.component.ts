@@ -11,8 +11,8 @@ import {
 } from '@angular/forms';
 import { catchError, debounceTime, finalize, map, Observable, of, switchMap } from 'rxjs';
 
-import { ProductService } from '../../../core/services/product.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { ProductService } from '../../../core/services/product/product.service';
+import { NotificationService } from '../../../core/services/notification/notification.service';
 import { FinancialProductModel } from '../../../core/models/financial-product.model';
 
 
@@ -155,7 +155,7 @@ export class FinancialProductsCreateComponent implements OnInit {
   save(): void {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
-      return;
+      //return;
     }
 
     this.loading = true;

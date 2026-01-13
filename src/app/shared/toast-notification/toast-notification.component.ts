@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { NotificationModel } from '../../core/models/notification.model';
-import { NotificationService } from '../../core/services/notification.service';
+import { NotificationService } from '../../core/services/notification/notification.service';
 
 @Component({
   selector: 'app-toast-notification',

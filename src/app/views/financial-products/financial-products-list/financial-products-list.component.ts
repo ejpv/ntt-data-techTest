@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { ProductService } from '../../../core/services/product.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { ProductService } from '../../../core/services/product/product.service';
+import { NotificationService } from '../../../core/services/notification/notification.service';
 import { FinancialProductModel } from '../../../core/models/financial-product.model';
 
 @Component({
