@@ -108,9 +108,11 @@ export class FinancialProductsCreateComponent implements OnInit {
         ]
       ],
       logo: ['', Validators.required],
-      date_release: [
-        ['', Validators.required],
-        this.minDateValidator
+      date_release: ['',
+        [
+          Validators.required,
+          this.minDateValidator
+        ]
       ],
       date_revision: ['', Validators.required],
     })
