@@ -155,9 +155,9 @@ export class FinancialProductsCreateComponent implements OnInit {
   save(): void {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
-      //return;
+      return;
     }
-
+    console.log("cambia el loading?")
     this.loading = true;
 
     const product = this.productForm.getRawValue();
