@@ -4,6 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { ToastNotificationComponent } from './toast-notification.component';
 
 import { NotificationModel } from '../../core/models/notification.model';
+import { NotificationService } from '../../core/services/notification/notification.service';
 
 describe('ToastNotificationComponent', () => {
   let component: ToastNotificationComponent;
@@ -13,8 +14,15 @@ describe('ToastNotificationComponent', () => {
   beforeEach(async () => {
     notificationSubject = new Subject<NotificationModel>();
 
+    const notificationServiceMock = {
+      notification$: notificationSubject.asObservable()
+    };
+
     await TestBed.configureTestingModule({
-      declarations: [ToastNotificationComponent]
+      declarations: [ToastNotificationComponent],
+      providers: [
+        { provide: NotificationService, useValue: notificationServiceMock }
+      ]
     })
     .compileComponents();
 
